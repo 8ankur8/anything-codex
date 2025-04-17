@@ -1,440 +1,608 @@
-<h1 align="center">OpenAI Codex CLI</h1>
-<p align="center">Lightweight coding agent that runs in your terminal</p>
+Okay, let's craft a README.md for anything-codex. The goal is to leverage the structure and clarity of the original OpenAI Codex CLI README while clearly highlighting the core difference: multi-provider support and inviting community contributions from the start.
 
-<p align="center"><code>npm i -g @openai/codex</code></p>
+Here's a draft README.md for anything-codex:
 
-![Codex demo GIF using: codex "explain this codebase to me"](./.github/demo.gif)
+<h1 align="center">Anything Codex</h1>
+<p align="center">Your Universal Coding Agent: An AI-powered coding assistant for your terminal, supporting multiple LLM providers.</p>
 
----
+<p align="center"><code>npm i -g anything-codex</code></p>
+
+<!-- TODO: Replace with an Anything Codex demo GIF -->
+
+
+![alt text](./.github/placeholder-demo.gif)
+
+Demo showing interaction (placeholder)
 
 <details>
 <summary><strong>Table&nbsp;of&nbsp;Contents</strong></summary>
 
-- [Experimental Technology Disclaimer](#experimental-technology-disclaimer)
-- [Quickstart](#quickstart)
-- [Why Codex?](#whycodex)
-- [Security Model \& Permissions](#securitymodelpermissions)
-  - [Platform sandboxing details](#platform-sandboxing-details)
-- [System Requirements](#systemrequirements)
-- [CLI Reference](#clireference)
-- [Memory \& Project Docs](#memoryprojectdocs)
-- [Non‑interactive / CI mode](#noninteractivecimode)
-- [Recipes](#recipes)
-- [Installation](#installation)
-- [Configuration](#configuration)
-- [FAQ](#faq)
-- [Funding Opportunity](#funding-opportunity)
-- [Contributing](#contributing)
-  - [Development workflow](#development-workflow)
-  - [Writing high‑impact code changes](#writing-highimpact-code-changes)
-  - [Opening a pull request](#opening-a-pull-request)
-  - [Review process](#review-process)
-  - [Community values](#community-values)
-  - [Getting help](#getting-help)
-  - [Contributor License Agreement (CLA)](#contributor-license-agreement-cla)
-    - [Quick fixes](#quick-fixes)
-  - [Releasing `codex`](#releasing-codex)
-- [Security \& Responsible AI](#securityresponsibleai)
-- [License](#license)
+
+Project Vision & Status
+
+Quickstart
+
+Why Anything Codex?
+
+Supported Providers
+
+Security Model & Permissions
+
+Platform sandboxing details
+
+System Requirements
+
+CLI Reference
+
+Memory & Project Docs
+
+Non‑interactive / CI mode
+
+Recipes
+
+Installation
+
+Configuration
+
+FAQ
+
+Contributing
+
+Call for Contributors!
+
+Development workflow
+
+Adding New Providers
+
+Writing high‑impact code changes
+
+Opening a pull request
+
+Review process
+
+Community values
+
+Getting help
+
+Contributor License Agreement (CLA)
+
+Quick fixes
+
+Releasing anything-codex
+
+Security & Responsible AI
+
+License
 
 </details>
 
----
+Project Vision & Status
 
-## Experimental Technology Disclaimer
+Anything Codex aims to be a flexible, powerful, and community-driven coding agent that runs in your terminal. Inspired by the original OpenAI Codex CLI, this project extends the concept to support a wide range of Large Language Model (LLM) providers, including commercial APIs and local models.
 
-Codex CLI is an experimental project under active development. It is not yet stable, may contain bugs, incomplete features, or undergo breaking changes. We’re building it in the open with the community and welcome:
+This is an early-stage, experimental project. We are actively seeking contributors to help build out functionality, add provider support, and shape the future of the tool. Expect bugs, rapid changes, and incomplete features. We're building this in the open and welcome:
 
-- Bug reports
-- Feature requests
-- Pull requests
-- Good vibes
+Bug reports
 
-Help us improve by filing issues or submitting PRs (see the section below for how to contribute)!
+Feature requests (especially provider support!)
 
-## Quickstart
+Pull requests
+
+Ideas and discussion
+
+Help us build the ultimate terminal coding assistant!
+
+Quickstart
 
 Install globally:
 
-```shell
-npm install -g @openai/codex
-```
+npm install -g anything-codex
 
-Next, set your OpenAI API key as an environment variable:
 
-```shell
-export OPENAI_API_KEY="your-api-key-here"
-```
+Next, configure your desired LLM provider(s). You can use environment variables (shown below) or the configuration file (~/.anything-codex/config.yaml, recommended for multiple providers).
 
-> **Note:** This command sets the key only for your current terminal session. To make it permanent, add the `export` line to your shell's configuration file (e.g., `~/.zshrc`).
+Example using OpenAI via environment variable:
+
+export OPENAI_API_KEY="your-openai-api-key"
+IGNORE_WHEN_COPYING_START
+content_copy
+download
+Use code with caution.
+Shell
+IGNORE_WHEN_COPYING_END
+
+Example using Ollama (local) via environment variable:
+
+# Ensure Ollama server is running, e.g., `ollama serve`
+export OLLAMA_BASE_URL="http://localhost:11434" # Default Ollama URL
+IGNORE_WHEN_COPYING_START
+content_copy
+download
+Use code with caution.
+Shell
+IGNORE_WHEN_COPYING_END
+
+Note: Environment variables set this way are only for the current session. Add export lines to your shell's configuration file (e.g., ~/.zshrc, ~/.bashrc) for persistence. See the Configuration section for managing multiple providers easily.
 
 Run interactively:
 
-```shell
-codex
-```
+anything-codex
+IGNORE_WHEN_COPYING_START
+content_copy
+download
+Use code with caution.
+Shell
+IGNORE_WHEN_COPYING_END
 
-Or, run with a prompt as input (and optionally in `Full Auto` mode):
+Run with a prompt, specifying the provider and model (if not using defaults):
 
-```shell
-codex "explain this codebase to me"
-```
+anything-codex --provider openai --model gpt-4o "explain this codebase to me"
+IGNORE_WHEN_COPYING_START
+content_copy
+download
+Use code with caution.
+Shell
+IGNORE_WHEN_COPYING_END
+anything-codex --provider ollama --model llama3 "refactor this function to be more efficient"
+IGNORE_WHEN_COPYING_START
+content_copy
+download
+Use code with caution.
+Shell
+IGNORE_WHEN_COPYING_END
 
-```shell
-codex --approval-mode full-auto "create the fanciest todo-list app"
-```
+Run in Full Auto mode (use with caution!):
 
-That’s it – Codex will scaffold a file, run it inside a sandbox, install any
-missing dependencies, and show you the live result. Approve the changes and
-they’ll be committed to your working directory.
+anything-codex --provider anthropic --model claude-3-opus-20240229 --approval-mode full-auto "create a simple flask todo app"
+IGNORE_WHEN_COPYING_START
+content_copy
+download
+Use code with caution.
+Shell
+IGNORE_WHEN_COPYING_END
 
----
+That’s it! Anything Codex will interact with your chosen LLM, scaffold files, run commands inside a sandbox, install dependencies, and show you the results. Approve changes to commit them to your working directory.
 
-## Why Codex?
+Why Anything Codex?
 
-Codex CLI is built for developers who already **live in the terminal** and want
-ChatGPT‑level reasoning **plus** the power to actually run code, manipulate
-files, and iterate – all under version control. In short, it’s _chat‑driven
-development_ that understands and executes your repo.
+Anything Codex is built for developers who live in the terminal and want:
 
-- **Zero setup** — bring your OpenAI API key and it just works!
-- **Full auto-approval, while safe + secure** by running network-disabled and directory-sandboxed
-- **Multimodal** — pass in screenshots or diagrams to implement features ✨
+LLM Flexibility: Choose the best model for the job from various providers (OpenAI, Anthropic, Google, Ollama, etc.) without being locked into a single ecosystem.
 
-And it's **fully open-source** so you can see and contribute to how it develops!
+ChatGPT-level Reasoning: Leverage powerful AI models for coding tasks.
 
----
+Code Execution & File Manipulation: Go beyond chat – let the agent run code, modify files, and iterate, all within a secure sandbox.
 
-## Security Model & Permissions
+Version Control Integration: Work seamlessly with Git, approving changes before they hit your working directory.
 
-Codex lets you decide _how much autonomy_ the agent receives and auto-approval policy via the
-`--approval-mode` flag (or the interactive onboarding prompt):
+Zero Setup (almost): Bring your API keys/endpoints, and it works.
 
-| Mode                      | What the agent may do without asking            | Still requires approval                                         |
-| ------------------------- | ----------------------------------------------- | --------------------------------------------------------------- |
-| **Suggest** <br>(default) | • Read any file in the repo                     | • **All** file writes/patches <br>• **All** shell/Bash commands |
-| **Auto Edit**             | • Read **and** apply‑patch writes to files      | • **All** shell/Bash commands                                   |
-| **Full Auto**             | • Read/write files <br>• Execute shell commands | –                                                               |
+Safety & Security: Auto-approval modes balanced with network-disabled and directory-sandboxed execution.
 
-In **Full Auto** every command is run **network‑disabled** and confined to the
-current working directory (plus temporary files) for defense‑in‑depth. Codex
-will also show a warning/confirmation if you start in **auto‑edit** or
-**full‑auto** while the directory is _not_ tracked by Git, so you always have a
-safety net.
+Open Source & Community Driven: See the code, contribute features, and help shape the tool's direction.
 
-Coming soon: you’ll be able to whitelist specific commands to auto‑execute with
-the network enabled, once we’re confident in additional safeguards.
+It's chat-driven development that understands your repo, powered by the LLM of your choice.
 
-### Platform sandboxing details
+Supported Providers
 
-The hardening mechanism Codex uses depends on your OS:
+Anything Codex aims to support a wide range of providers. Current status (Help us add more!):
 
-- **macOS 12+** – commands are wrapped with **Apple Seatbelt** (`sandbox-exec`).
+OpenAI (via API Key)
 
-  - Everything is placed in a read‑only jail except for a small set of
-    writable roots (`$PWD`, `$TMPDIR`, `~/.codex`, etc.).
-  - Outbound network is _fully blocked_ by default – even if a child process
-    tries to `curl` somewhere it will fail.
+Ollama (via Base URL for local models)
 
-- **Linux** – we recommend using Docker for sandboxing, where Codex launches itself inside a **minimal
-  container image** and mounts your repo _read/write_ at the same path. A
-  custom `iptables`/`ipset` firewall script denies all egress except the
-  OpenAI API. This gives you deterministic, reproducible runs without needing
-  root on the host. You can read more in [`run_in_container.sh`](./codex-cli/scripts/run_in_container.sh)
+Anthropic (Needs Implementation - PRs welcome!)
 
-Both approaches are _transparent_ to everyday usage – you still run `codex` from your repo root and approve/reject steps as usual.
+Google Gemini (Needs Implementation - PRs welcome!)
 
----
+Mistral AI (Needs Implementation - PRs welcome!)
 
-## System Requirements
+DeepSeek (Needs Implementation - PRs welcome!)
 
-| Requirement                 | Details                                                         |
-| --------------------------- | --------------------------------------------------------------- |
-| Operating systems           | macOS 12+, Ubuntu 20.04+/Debian 10+, or Windows 11 **via WSL2** |
-| Node.js                     | **22 or newer** (LTS recommended)                               |
-| Git (optional, recommended) | 2.23+ for built‑in PR helpers                                   |
-| RAM                         | 4‑GB minimum (8‑GB recommended)                                 |
+Azure OpenAI (Needs Implementation - PRs welcome!)
 
-> Never run `sudo npm install -g`; fix npm permissions instead.
+OpenRouter (Needs Implementation - PRs welcome!)
 
----
+Your favourite provider here? (Open an issue or PR!)
 
-## CLI Reference
+See the Configuration section for how to set up credentials/endpoints.
 
-| Command                              | Purpose                             | Example                              |
-| ------------------------------------ | ----------------------------------- | ------------------------------------ |
-| `codex`                              | Interactive REPL                    | `codex`                              |
-| `codex "…"`                          | Initial prompt for interactive REPL | `codex "fix lint errors"`            |
-| `codex -q "…"`                       | Non‑interactive "quiet mode"        | `codex -q --json "explain utils.ts"` |
-| `codex completion <bash\|zsh\|fish>` | Print shell completion script       | `codex completion bash`              |
+Security Model & Permissions
 
-Key flags: `--model/-m`, `--approval-mode/-a`, and `--quiet/-q`.
+Anything Codex inherits the security-conscious design of the original, letting you control the agent's autonomy via the --approval-mode flag:
 
----
+Mode	What the agent may do without asking	Still requires approval
+Suggest <br>(default)	• Read any file in the repo	• All file writes/patches <br>• All shell/Bash commands
+Auto Edit	• Read and apply patch writes to files	• All shell/Bash commands
+Full Auto	• Read/write files <br>• Execute shell commands	–
 
-## Memory & Project Docs
+In Full Auto, commands run network-disabled (except for the LLM API call itself, if applicable) and confined to the current working directory (plus temporary files). A warning is shown if starting in auto-edit or full-auto without Git tracking.
 
-Codex merges Markdown instructions in this order:
+(Future Work: Granular network controls based on provider/command)
 
-1. `~/.codex/instructions.md` – personal global guidance
-2. `codex.md` at repo root – shared project notes
-3. `codex.md` in cwd – sub‑package specifics
+Platform sandboxing details
 
-Disable with `--no-project-doc` or `CODEX_DISABLE_PROJECT_DOC=1`.
+The sandboxing mechanism depends on your OS:
 
----
+macOS 12+: Uses Apple Seatbelt (sandbox-exec). Read-only jail except for essential paths ($PWD, $TMPDIR, ~/.anything-codex). Outbound network blocked by default for executed commands.
 
-## Non‑interactive / CI mode
+Linux: Docker is recommended. Anything Codex can run inside a minimal container, mounting your repo read/write. A custom firewall script can restrict egress (needs implementation/refinement for multi-provider). See scripts/run_in_container.sh (TODO: Adapt this script).
 
-Run Codex head‑less in pipelines. Example GitHub Action step:
+Both approaches aim for transparency in daily use.
 
-```yaml
-- name: Update changelog via Codex
+System Requirements
+Requirement	Details
+Operating systems	macOS 12+, Ubuntu 20.04+/Debian 10+, or Windows 11 via WSL2
+Node.js	22 or newer (LTS recommended)
+Git (optional, recommended)	2.23+ for version control safety net
+RAM	4‑GB minimum (8‑GB recommended)
+(Optional) Docker	For enhanced sandboxing on Linux
+(Optional) Ollama	For running local models
+
+Never run sudo npm install -g; fix npm permissions instead.
+
+CLI Reference
+Command	Purpose	Example
+anything-codex	Interactive REPL	anything-codex
+anything-codex "…"	Initial prompt for interactive REPL	anything-codex "fix lint errors"
+anything-codex -p <provider> -m <model> "…"	Specify provider and model	anything-codex -p ollama -m llama3 "add type hints"
+anything-codex -q "…"	Non‑interactive "quiet mode"	anything-codex -q --json "explain utils.ts"
+anything-codex completion <bash|zsh|fish>	Print shell completion script	anything-codex completion zsh
+
+Key flags: --provider/-p, --model/-m, --approval-mode/-a, --quiet/-q. Use anything-codex --help for all options.
+
+Memory & Project Docs
+
+Anything Codex can load contextual instructions from Markdown files:
+
+~/.anything-codex/instructions.md – Personal global guidance
+
+anything-codex.md at repo root – Shared project notes
+
+anything-codex.md in current working directory – Sub-package specifics
+
+Disable with --no-project-doc or ANYTHING_CODEX_DISABLE_PROJECT_DOC=1.
+
+Non‑interactive / CI mode
+
+Run Anything Codex headlessly in pipelines.
+
+# Example GitHub Action step
+- name: Refactor code via Anything Codex (using Ollama)
   run: |
-    npm install -g @openai/codex
-    export OPENAI_API_KEY="${{ secrets.OPENAI_KEY }}"
-    codex -a auto-edit --quiet "update CHANGELOG for next release"
-```
+    npm install -g anything-codex
+    # Configure Ollama endpoint if not default localhost
+    # export OLLAMA_BASE_URL="http://ollama-service:11434"
+    anything-codex -p ollama -m llama3 -a auto-edit --quiet "refactor services/legacy.py using modern patterns"
+  env:
+    # Pass secrets if using cloud providers
+    # OPENAI_API_KEY: ${{ secrets.OPENAI_KEY }}
+    # ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_KEY }}
+IGNORE_WHEN_COPYING_START
+content_copy
+download
+Use code with caution.
+Yaml
+IGNORE_WHEN_COPYING_END
 
-Set `CODEX_QUIET_MODE=1` to silence interactive UI noise.
+Set ANYTHING_CODEX_QUIET_MODE=1 to silence interactive UI elements.
 
----
+Recipes
 
-## Recipes
+Here are examples to get you started. Replace the prompt and adjust --provider/--model as needed.
 
-Below are a few bite‑size examples you can copy‑paste. Replace the text in quotes with your own task. See the [prompting guide](https://github.com/openai/codex/blob/main/codex-cli/examples/prompting_guide.md) for more tips and usage patterns.
-
-| ✨  | What you type                                                                   | What happens                                                               |
-| --- | ------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
-| 1   | `codex "Refactor the Dashboard component to React Hooks"`                       | Codex rewrites the class component, runs `npm test`, and shows the diff.   |
-| 2   | `codex "Generate SQL migrations for adding a users table"`                      | Infers your ORM, creates migration files, and runs them in a sandboxed DB. |
-| 3   | `codex "Write unit tests for utils/date.ts"`                                    | Generates tests, executes them, and iterates until they pass.              |
-| 4   | `codex "Bulk‑rename *.jpeg → *.jpg with git mv"`                                | Safely renames files and updates imports/usages.                           |
-| 5   | `codex "Explain what this regex does: ^(?=.*[A-Z]).{8,}$"`                      | Outputs a step‑by‑step human explanation.                                  |
-| 6   | `codex "Carefully review this repo, and propose 3 high impact well-scoped PRs"` | Suggests impactful PRs in the current codebase.                            |
-| 7   | `codex "Look for vulnerabilities and create a security review report"`          | Finds and explains security bugs.                                          |
-
----
-
-## Installation
-
+✨	What you type	What might happen (depending on LLM)
+1	anything-codex -p openai -m gpt-4o "Refactor the Dashboard component to React Hooks"	Rewrites the component, runs npm test, shows diff.
+2	anything-codex -p ollama -m codellama "Generate SQL migration for adding 'last_login' to users"	Infers ORM, creates migration file, shows command to run it.
+3	anything-codex -p anthropic -m claude-3-sonnet... "Write unit tests for utils/date.ts"	Generates tests using your test framework, runs them, iterates if needed.
+4	anything-codex "Bulk-rename *.jpeg → *.jpg with git mv"	Generates and executes safe git mv commands.
+5	anything-codex "Explain what this regex does: ^(?=.*[A-Z]).{8,}$"	Outputs a step-by-step human explanation.
+6	anything-codex -p google -m gemini-pro "Propose 3 high-impact, well-scoped PRs for this repo"	Analyzes code and suggests potential improvements.
+7	anything-codex --model llama3 "Review this script for potential security issues"	Attempts to find and explain security bugs.
+Installation
 <details open>
-<summary><strong>From npm (Recommended)</strong></summary>
+<summary><strong>From npm (Recommended)</strong></summary>
 
-```bash
-npm install -g @openai/codex
+npm install -g anything-codex
 # or
-yarn global add @openai/codex
-```
-
+yarn global add anything-codex
+IGNORE_WHEN_COPYING_START
+content_copy
+download
+Use code with caution.
+Bash
+IGNORE_WHEN_COPYING_END
 </details>
 
 <details>
-<summary><strong>Build from source</strong></summary>
+<summary><strong>Build from source</strong></summary>
 
-```bash
-# Clone the repository and navigate to the CLI package
-git clone https://github.com/openai/codex.git
-cd codex/codex-cli
+# Clone the repository
+git clone https://github.com/YOUR_USERNAME/anything-codex.git # Replace with actual repo URL
+cd anything-codex
 
 # Install dependencies and build
 npm install
 npm run build
 
-# Get the usage and the options
+# Get usage help
 node ./dist/cli.js --help
 
-# Run the locally‑built CLI directly
-node ./dist/cli.js
+# Run the locally-built CLI
+node ./dist/cli.js "my prompt"
 
-# Or link the command globally for convenience
+# Or link for global access during development
 npm link
-```
+IGNORE_WHEN_COPYING_START
+content_copy
+download
+Use code with caution.
+Bash
+IGNORE_WHEN_COPYING_END
+</details>
+
+Configuration
+
+Manage providers and settings in ~/.anything-codex/config.yaml. Environment variables override config file settings.
+
+Example ~/.anything-codex/config.yaml:
+
+# Default provider and model to use if not specified on the command line
+defaultProvider: openai
+defaultModel: o4-mini # Ensure this model exists for the default provider
+
+# Approval mode for non-interactive runs if not specified
+# Options: suggest, auto-edit, full-auto
+defaultApprovalMode: suggest
+
+# Behavior when 'full-auto' encounters an error
+# Options: ask-user, ignore-and-continue, stop
+fullAutoErrorMode: ask-user
+
+# Define providers and their specific configurations
+providers:
+  openai:
+    apiKey: sk-your-openai-key-here # Or use OPENAI_API_KEY env var
+    # You can specify other OpenAI options here, like baseURL for proxies
+    # model: gpt-4o # Default model for this provider if not specified
+
+  ollama:
+    # Base URL of your running Ollama instance
+    baseURL: http://localhost:11434 # Or use OLLAMA_BASE_URL env var
+    # model: llama3 # Default model for Ollama if not specified
+
+  anthropic:
+    apiKey: sk-ant-your-anthropic-key-here # Or use ANTHROPIC_API_KEY env var
+    # model: claude-3-opus-20240229
+
+  google:
+    apiKey: your-google-api-key-here # Or use GOOGLE_API_KEY env var
+    # model: gemini-1.5-pro-latest
+
+  # Add other providers like openrouter, mistral, deepseek, azure...
+  # openrouter:
+  #   apiKey: sk-or-your-key-here
+  #   # OpenRouter often needs model names prefixed, e.g., openai/gpt-4o
+  #   model: mistralai/mistral-7b-instruct
+
+# Custom instructions can also be defined here or in ~/.anything-codex/instructions.md
+# instructions:
+#   - Always provide code explanations.
+#   - Prefer Python for scripting tasks unless specified otherwise.
+IGNORE_WHEN_COPYING_START
+content_copy
+download
+Use code with caution.
+Yaml
+IGNORE_WHEN_COPYING_END
+FAQ
+<details>
+<summary>How is this different from the original OpenAI Codex CLI?</summary>
+
+
+The core difference is flexibility. Anything Codex is designed from the ground up to support multiple LLM backends (OpenAI, Anthropic, Google, local models via Ollama, etc.), whereas the original was tied to OpenAI's specific (now deprecated) Codex models and newer OpenAI models. We aim to maintain the powerful terminal integration and safety features while giving users choice.
 
 </details>
 
----
-
-## Configuration
-
-Codex looks for config files in **`~/.codex/`**.
-
-```yaml
-# ~/.codex/config.yaml
-model: o4-mini # Default model
-fullAutoErrorMode: ask-user # or ignore-and-continue
-```
-
-You can also define custom instructions:
-
-```yaml
-# ~/.codex/instructions.md
-- Always respond with emojis
-- Only use git commands if I explicitly mention you should
-```
-
----
-
-## FAQ
-
 <details>
-<summary>OpenAI released a model called Codex in 2021 - is this related?</summary>
+<summary>How do I configure different LLM providers?</summary>
 
-In 2021, OpenAI released Codex, an AI system designed to generate code from natural language prompts. That original Codex model was deprecated as of March 2023 and is separate from the CLI tool.
+
+The recommended way is using the ~/.anything-codex/config.yaml file, where you can list multiple providers and their API keys or base URLs. You can also use environment variables (e.g., OPENAI_API_KEY, OLLAMA_BASE_URL, ANTHROPIC_API_KEY). Use the --provider flag to select which one to use for a specific command.
 
 </details>
 
 <details>
-<summary>How do I stop Codex from touching my repo?</summary>
+<summary>How do I use local models like Llama 3?</summary>
 
-Codex always runs in a **sandbox first**. If a proposed command or file change looks suspicious you can simply answer **n** when prompted and nothing happens to your working tree.
+
+Install and run Ollama.
+
+Pull the model you want: ollama pull llama3.
+
+Configure Anything Codex to point to your Ollama instance (usually http://localhost:11434) using the config.yaml file or the OLLAMA_BASE_URL environment variable.
+
+Run commands using --provider ollama --model llama3.
+
+</details>
+
+<details>
+<summary>How do I stop Anything Codex from modifying my files?</summary>
+
+
+By default (--approval-mode suggest), Anything Codex will always ask for confirmation before writing any file changes or executing any shell commands. You can review the proposed changes (diffs) or commands and answer n (no) to reject them. Only use auto-edit or full-auto if you understand the risks and ideally have your code under version control (Git).
 
 </details>
 
 <details>
 <summary>Does it work on Windows?</summary>
 
-Not directly. It requires [Windows Subsystem for Linux (WSL2)](https://learn.microsoft.com/en-us/windows/wsl/install) – Codex has been tested on macOS and Linux with Node ≥ 22.
+
+Native Windows is not directly supported. You need to use Windows Subsystem for Linux (WSL2). Testing has primarily been on macOS and Linux.
 
 </details>
 
-<details>
-<summary>Which models are supported?</summary>
+<!-- Section removed: Funding Opportunity (was specific to OpenAI) -->
 
-Any model available with [Responses API](https://platform.openai.com/docs/api-reference/responses). The default is `o4-mini`, but pass `--model gpt-4o` or set `model: gpt-4o` in your config file to override.
+<!-- Consider adding a "Sponsorship" section if applicable later -->
 
-</details>
+Contributing
+Call for Contributors!
 
----
+Anything Codex needs your help! This is a community effort to build a versatile and powerful tool. We especially need help with:
 
-## Funding Opportunity
+Implementing New Provider Integrations: Adding support for Anthropic, Google Gemini, Mistral, OpenRouter, Azure, etc. is a top priority.
 
-We’re excited to launch a **$1 million initiative** supporting open source projects that use Codex CLI and other OpenAI models.
+Improving Sandboxing: Enhancing the security and cross-platform compatibility of command execution.
 
-- Grants are awarded in **$25,000** API credit increments.
-- Applications are reviewed **on a rolling basis**.
+Refining the Core Logic: Improving prompt engineering, state management, and the interaction loop.
 
-**Interested? [Apply here](https://openai.com/form/codex-open-source-fund/).**
+Testing & Bug Fixing: Ensuring reliability across different setups and providers.
 
----
+Documentation: Making it easy for users and new contributors to get started.
 
-## Contributing
+Whether you're adding a new provider, fixing a bug, or improving the docs, your contribution is valuable!
 
-This project is under active development and the code will likely change pretty significantly. We'll update this message once that's complete!
+Development workflow
 
-More broadly we welcome contributions – whether you are opening your very first pull request or you’re a seasoned maintainer. At the same time we care about reliability and long‑term maintainability, so the bar for merging code is intentionally **high**. The guidelines below spell out what “high‑quality” means in practice and should make the whole process transparent and friendly.
+(Adapted from original, assuming similar tooling)
 
-### Development workflow
+Fork the repository and create a topic branch from main (e.g., feat/add-anthropic-provider).
 
-- Create a _topic branch_ from `main` – e.g. `feat/interactive-prompt`.
-- Keep your changes focused. Multiple unrelated fixes should be opened as separate PRs.
-- Use `npm run test:watch` during development for super‑fast feedback.
-- We use **Vitest** for unit tests, **ESLint** + **Prettier** for style, and **TypeScript** for type‑checking.
-- Before pushing, run the full test/type/lint suite:
+Keep changes focused. One provider or feature per PR.
 
-  ```bash
-  npm test && npm run lint && npm run typecheck
-  ```
+Use npm run test:watch for fast feedback during development.
 
-- If you have **not** yet signed the Contributor License Agreement (CLA), add a PR comment containing the exact text
+We use Vitest (or similar like Jest) for tests, ESLint + Prettier for style, and TypeScript.
 
-  ```text
-  I have read the CLA Document and I hereby sign the CLA
-  ```
+Run checks before pushing: npm test && npm run lint && npm run typecheck
 
-  The CLA‑Assistant bot will turn the PR status green once all authors have signed.
+Sign the Contributor License Agreement (CLA) by adding the required comment to your PR.
 
-```bash
-# Watch mode (tests rerun on change)
+# Watch mode for tests
 npm run test:watch
 
-# Type‑check without emitting files
+# Type-check
 npm run typecheck
 
-# Automatically fix lint + prettier issues
+# Fix lint/format issues
 npm run lint:fix
 npm run format:fix
-```
+IGNORE_WHEN_COPYING_START
+content_copy
+download
+Use code with caution.
+Bash
+IGNORE_WHEN_COPYING_END
+Adding New Providers
 
-### Writing high‑impact code changes
+Create an Issue: Discuss the provider integration first.
 
-1. **Start with an issue.** Open a new one or comment on an existing discussion so we can agree on the solution before code is written.
-2. **Add or update tests.** Every new feature or bug‑fix should come with test coverage that fails before your change and passes afterwards. 100 % coverage is not required, but aim for meaningful assertions.
-3. **Document behaviour.** If your change affects user‑facing behaviour, update the README, inline help (`codex --help`), or relevant example projects.
-4. **Keep commits atomic.** Each commit should compile and the tests should pass. This makes reviews and potential rollbacks easier.
+Add Configuration: Update config.yaml structure and documentation (README.md, example config) to include the new provider's settings (API key, base URL, etc.).
 
-### Opening a pull request
+Implement Client: Create a new client module (e.g., src/providers/anthropic.ts) that handles API requests specific to that provider, conforming to a common interface (e.g., LLMProvider).
 
-- Fill in the PR template (or include similar information) – **What? Why? How?**
-- Run **all** checks locally (`npm test && npm run lint && npm run typecheck`). CI failures that could have been caught locally slow down the process.
-- Make sure your branch is up‑to‑date with `main` and that you have resolved merge conflicts.
-- Mark the PR as **Ready for review** only when you believe it is in a merge‑able state.
+Integrate: Update the main logic to recognize and use the new provider based on configuration/flags.
 
-### Review process
+Add Tests: Write unit/integration tests for the new provider client. Mock API calls.
 
-1. One maintainer will be assigned as a primary reviewer.
-2. We may ask for changes – please do not take this personally. We value the work, we just also value consistency and long‑term maintainability.
-3. When there is consensus that the PR meets the bar, a maintainer will squash‑and‑merge.
+Update Docs: Add the provider to the Supported Providers list and explain its configuration.
 
-### Community values
+Writing high‑impact code changes
 
-- **Be kind and inclusive.** Treat others with respect; we follow the [Contributor Covenant](https://www.contributor-covenant.org/).
-- **Assume good intent.** Written communication is hard – err on the side of generosity.
-- **Teach & learn.** If you spot something confusing, open an issue or PR with improvements.
+Start with an issue: Discuss the proposed change first.
 
-### Getting help
+Add/update tests: Ensure test coverage for new features/fixes.
 
-If you run into problems setting up the project, would like feedback on an idea, or just want to say _hi_ – please open a Discussion or jump into the relevant issue. We are happy to help.
+Document: Update README, help text, or examples if user-facing behavior changes.
 
-Together we can make Codex CLI an incredible tool. **Happy hacking!** :rocket:
+Atomic commits: Keep commits logical and passing tests.
 
-### Contributor License Agreement (CLA)
+Opening a pull request
 
-All contributors **must** accept the CLA. The process is lightweight:
+Fill in the PR template (What? Why? How?).
 
-1. Open your pull request.
-2. Paste the following comment (or reply `recheck` if you’ve signed before):
+Ensure local checks pass (npm test && npm run lint && npm run typecheck).
 
-   ```text
-   I have read the CLA Document and I hereby sign the CLA
-   ```
+Keep your branch updated with main.
 
-3. The CLA‑Assistant bot records your signature in the repo and marks the status check as passed.
+Mark PR as Ready for review when complete.
 
-No special Git commands, email attachments, or commit footers required.
+Review process
 
-#### Quick fixes
+Maintainer(s) will review.
 
-| Scenario          | Command                                                                                   |
-| ----------------- | ----------------------------------------------------------------------------------------- |
-| Amend last commit | `git commit --amend -s --no-edit && git push -f`                                          |
-| GitHub UI only    | Edit the commit message in the PR → add<br>`Signed-off-by: Your Name <email@example.com>` |
+Changes may be requested – this is part of the collaborative process!
 
-The **DCO check** blocks merges until every commit in the PR carries the footer (with squash this is just the one).
+Once approved, the PR will be merged (likely squash-merged).
 
-### Releasing `codex`
+Community values
 
-To publish a new version of the CLI, run the release scripts defined in `codex-cli/package.json`:
+Be kind and inclusive: Follow the Contributor Covenant.
 
-1. Open the `codex-cli` directory
-2. Make sure you're on a branch like `git checkout -b bump-version`
-3. Bump the version and `CLI_VERSION` to current datetime: `npm run release:version`
-4. Commit the version bump (with DCO sign-off):
-   ```bash
-   git add codex-cli/src/utils/session.ts codex-cli/package.json
-   git commit -s -m "chore(release): codex-cli v$(node -p \"require('./codex-cli/package.json').version\")"
-   ```
-5. Copy README, build, and publish to npm: `npm run release`
-6. Push to branch: `git push origin HEAD`
+Assume good intent.
 
----
+Teach & learn: Help improve the project and documentation.
 
-## Security &amp; Responsible AI
+Getting help
 
-Have you discovered a vulnerability or have concerns about model output? Please e‑mail **security@openai.com** and we will respond promptly.
+Use GitHub Discussions or Issues for questions, ideas, or help with setup. We're excited to build this together!
 
----
+:rocket: Happy Hacking! :rocket:
 
-## License
+Contributor License Agreement (CLA)
 
-This repository is licensed under the [Apache-2.0 License](LICENSE).
+(Keep the CLA process as described in the original, ensuring it points to the correct CLA document for this new project if applicable, or adopt DCO)
+
+All contributors must accept the CLA / DCO.
+
+CLA Process:
+
+Open your PR.
+
+Paste the following comment: I have read the CLA Document and I hereby sign the CLA
+
+A bot will verify.
+
+DCO Process (Alternative):
+Ensure every commit has a Signed-off-by: Your Name <your.email@example.com> footer. Use git commit -s to add it automatically.
+
+(Maintainers: Decide whether to use CLA or DCO and update this section accordingly)
+
+Quick fixes (for DCO)
+Scenario	Command
+Amend last commit	git commit --amend -s --no-edit && git push -f
+Multiple commits	git rebase -i HEAD~N (replace N), add -s
+Releasing anything-codex
+
+(Adapt the release process scripts and commands for the new package name)
+
+To publish a new version:
+
+Go to the project root.
+
+Checkout a release branch: git checkout -b release/vX.Y.Z
+
+Update version numbers (e.g., in package.json and any internal version constants): npm version patch|minor|major (or manually edit).
+
+Commit the version bump (with DCO sign-off if using DCO): git commit -am "chore(release): vX.Y.Z" (use -s if needed).
+
+Build and publish: npm run build && npm publish
+
+Push the tag and branch: git push origin vX.Y.Z && git push origin HEAD
+
+Create a GitHub Release from the tag.
+
+(This process needs refinement based on the actual build/release scripts setup)
+
+Security & Responsible AI
+
+Found a vulnerability or have concerns about model usage/safety? Please report it responsibly.
+
+Security: Open a confidential security advisory on GitHub or email [PROJECT_SECURITY_EMAIL@example.com] (Replace with actual contact).
+
+Responsible AI/Safety: Open a GitHub issue with the tag responsible-ai.
+
+License
+
+This repository is licensed under the Apache-2.0 License.
