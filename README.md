@@ -515,7 +515,7 @@ To publish a new version:
 ## Security & Responsible AI
 
 Found a vulnerability or have concerns about model usage/safety? Please report it responsibly.
--   **Security:** Open a confidential security advisory on GitHub or email [PROJECT_SECURITY_EMAIL@example.com] (Replace with actual contact).
+-   **Security:** Open a confidential security advisory on GitHub or email [anything-codex/issues](https://github.com/8ankur8/anything-codex/issues) .
 -   **Responsible AI/Safety:** Open a GitHub issue with the tag `responsible-ai`.
 
 ---
