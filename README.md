@@ -12,6 +12,7 @@
   -->
 </p>
 
+_Demo coming soon!_
 
 <!-- TODO: Replace with an Anything Codex demo GIF -->
 ![Codex demo GIF using: codex "explain this codebase to me"](./.github/demo.gif)
