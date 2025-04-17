@@ -1,7 +1,3 @@
-Okay, let's craft a README.md for anything-codex. The goal is to leverage the structure and clarity of the original OpenAI Codex CLI README while clearly highlighting the core difference: multi-provider support and inviting community contributions from the start.
-
-Here's a draft README.md for anything-codex:
-
 <h1 align="center">Anything Codex</h1>
 <p align="center">Your Universal Coding Agent: An AI-powered coding assistant for your terminal, supporting multiple LLM providers.</p>
 
