@@ -2,7 +2,16 @@
 <h1 align="center">Anything Codex</h1>
 <p align="center">Your Universal Coding Agent: An AI-powered coding assistant for your terminal, supporting multiple LLM providers.</p>
 
-<p align="center"><code>npm i -g anything-codex</code></p>
+<p align="center">
+  <!-- Replace 'anything-codex' if your npm package name is different -->
+  <a href="https://www.npmjs.com/package/anything-codex"><img src="https://badge.fury.io/js/anything-codex.svg" alt="npm version"></a>
+  <!-- Ensure LICENSE file exists in your repo -->
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-Apache_2.0-blue.svg" alt="License"></a>
+  <!-- Optional: Add later when CI is set up
+  <a href="https://github.com/YOUR_GITHUB_USERNAME/anything-codex/actions/workflows/ci.yml"><img src="https://github.com/YOUR_GITHUB_USERNAME/anything-codex/actions/workflows/ci.yml/badge.svg" alt="Build Status"></a>
+  -->
+</p>
+
 
 <!-- TODO: Replace with an Anything Codex demo GIF -->
 ![Codex demo GIF using: codex "explain this codebase to me"](./.github/demo.gif)
