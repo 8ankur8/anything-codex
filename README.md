@@ -140,7 +140,7 @@ It's _chat-driven development_ that understands your repo, powered by the LLM of
 Anything Codex aims to support a wide range of providers. Current status (Help us add more!):
 
 *   [x] **OpenAI** (via API Key)
-*   [x] **Ollama** (via Base URL for local models)
+*   [ ] **Ollama** (via Base URL for local models)
 *   [ ] **Anthropic** (Needs Implementation - PRs welcome!)
 *   [ ] **Google Gemini** (Needs Implementation - PRs welcome!)
 *   [ ] **Mistral AI** (Needs Implementation - PRs welcome!)
